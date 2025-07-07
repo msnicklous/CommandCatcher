@@ -1,0 +1,7 @@
+CommandCatcher      KEYWORD1
+init                KEYWORD2
+addListener         KEYWORD2
+isCommandAvailable  KEYWORD2
+getCommand          KEYWORD2
+getParameters       KEYWORD2
+update              KEYWORD2
