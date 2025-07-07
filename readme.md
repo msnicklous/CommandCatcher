@@ -27,7 +27,8 @@ See [API Documentation](https://msnicklous.github.io/CommandCatcher/)
 
 The CommandCatcher monitors the serial interface, receiving ASCII characters as they arrive. When the terminating character 
 ('\n', configurable) arrives, the CommandCatcher parses the command into command and parameter strings and calls registered
-listeners for command processing. After all listeners have been called, the internal buffer will be reinitialized for the 
+listeners for command processing. Each listener should each handle the commands it's interested in while ignoring 
+the rest by simply returning. After all listeners have been called, the internal buffer will be reinitialized for the 
 subsequent command. 
 
 If no listeners are registered, the sketch can poll CommandCatcher to determine if a 
@@ -44,7 +45,18 @@ incoming serial data, there might occur tricky-to-find problems.
 
 ### Command Format
 
+The CommandCatcher imposes a structure on the data received. In general, it looks like this:
+```
+<ASCII characters (command)><separator><ASCII characters (parameter string)><terminator>
+```
+The first separator character encountered separates the command from the parameter string, so the parameter string may
+also contain separator characters without causing problems.
 
+By default, the separator character is a blank ' ' and the terminator is a new line character '\n', so the following would
+be a valid command string:
+```
+"Greeting Hello Bob!\n"
+```
 
 ---
 
@@ -84,64 +96,10 @@ setup() {
   ...
   SoftwareSerial mySerial (rxPin, txPin);
   mySerial.begin(115200);
-  Trace.init(mySerial, 32);
+  CCatcher.init(mySerial, 32);
   ...
 }
 ```
 
-
-### Buffered Tracing
-
-To used buffered tracing, you bracket the Trace.trace() calls between the Trace.open() and Trace.close() calls.
-Trace.open() resets the buffer and starts collecting trace data. Trace.close() causes all trace data collected by the Trace.trace() 
-calls to be written to the serial interface. I usually put Trace.open() at the top of the loop() block and Trace.close()
-at the end. 
-
-```
-void loop() {
-  static int ref0 = analogRead(A0);
-  long start = millis();
-  
-  Trace.open();
-
-  if (digitalRead(SWITCH_PIN)) {
-    ref0 = analogRead(A0);
-    Trace.trace("ref", ref0);
-  }
-  
-  // ... do interesting stuff ...
-  
-  long t = millis() - start;
-  Trace.trace("time", t);
-
-  Trace.close();
-}
-```
-If you call Trace.trace() either before calling Trace.open() or after calling Trace.close(), any data will be ignored.
-
-### Immediate Tracing
-
-The Trace.itrace() function will immediately write a string to the serial interface without regards for contents
-of the buffer.
-
-```
-void loop() {
-  static int ref0 = analogRead(A0);
-  long start = millis();
-  
-  Trace.open();
-
-  if (digitalRead(SWITCH_PIN)) {
-  	Trace.itrace("button pressed!!");
-  }
-  
-  // ... do interesting stuff ...
-  
-  long t = millis() - start;
-  Trace.trace("time", t);
-
-  Trace.close();
-}
-```
-
+### 
 

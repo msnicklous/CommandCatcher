@@ -3,5 +3,10 @@ init                KEYWORD2
 addListener         KEYWORD2
 isCommandAvailable  KEYWORD2
 getCommand          KEYWORD2
-getParameters       KEYWORD2
+getCompleteString   KEYWORD2
+getParameterString  KEYWORD2
+getParameterInt     KEYWORD2
+closeCommand        KEYWORD2
+setTerminator       KEYWORD2
+setSeparator        KEYWORD2
 update              KEYWORD2
