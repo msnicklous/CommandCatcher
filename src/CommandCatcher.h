@@ -19,9 +19,15 @@
 
 class CommandCatcher {
 public:
+  
+  /** 
+   ** The listener function must accept two strings - the command and the parameter string - and return void.
+   **/
+   typedef void (*CCListener)(char*, char*);
 
   /**
-   * @brief default constructor
+   ** @brief default constructor
+   ** @details Generally, you should use the predefined global instance 'CCatcher' rather than create your own instance.
    */
   CommandCatcher();
 
@@ -30,11 +36,35 @@ public:
    ** @details The init method is meant to
    ** be called from a central location, for example in the top-level sketch. If init
    ** is not called, the serial stream will not be monitored.
+   **
    ** @param serial - the serial stream to be used  
    ** @param bufsize - the desired buffer size
+   ** @param maxListeners - the maximum allowed number of listeners. Attempts to add more than this 
+   ** number of listeners will be ignored.
    **/
-  void init(Stream& serial=Serial, uint8_t bufsize=16);
+  void init(Stream& serial=Serial, uint8_t bufsize=16, uint8_t maxListeners=4);
   
+  /**
+   ** @brief checks the Serial input stream and processes any command info available.
+   ** @details Should be called at the beginning of the loop() function.
+   **
+   ** @param If true, the command will be closed out and discarded after the listener functions are called.
+   ** If you want to poll for commands rather than be notified, call update(false).
+   **/
+  void update(bool close=true);
+
+  /**
+   ** @brief Adds a listener to be called when a command is available
+   ** @details Should generally be called during the setup() function. The listener function must be a function 
+   ** returning void that accepts two char* parameters: 
+   **
+   ** @code
+   **   void myListener(char* command, char* parameter)
+   ** @endcode
+   **
+   ** @param myListener - The listener to be added
+   **/
+  void addListener(CCListener myListener);
 
   /**
    ** @brief Sets the terminator character
@@ -51,12 +81,31 @@ public:
   void setSeparator(char sep);
 
   /**
-   ** @brief checks the Serial input stream and processes any command info available.
-   ** @details Should be called at the beginning of the loop() function.
-   ** @param If true, the command will be closed out and discarded after the listener functions are called.
-   ** If you want to poll for commands rather than be notified, call update(false).
+   ** @brief Closes out the current command.
+   ** @details If you use update(false), you should call close() after processing the command.
    **/
-  void update(bool close=true);
+  void close();
+
+  /**
+   ** @brief Returns true if a command is ready to be processed. 
+   ** @details To be used when polling for commands.
+   ** @return true if a command is ready to be processed.
+   **/
+  bool ready();
+
+  /**
+   ** @brief Returns the command
+   ** @details To be used when polling for commands.
+   ** @return the command string
+   **/
+  char* getCommand();
+
+  /**
+   ** @brief Returns the paraeter string
+   ** @details To be used when polling for commands.
+   ** @return the parameter string
+   **/
+  char* getParameter();
 
   
 private:
@@ -72,12 +121,16 @@ private:
   char  terminator = '\n';
   char  separator = ' ';
   
+  CCListener* listeners = NULL;
+  int         numListeners = 0;
+  int         maxListeners = 0;
+  
   // returns true if command is available
   bool updateBuffer();
   void notifyListeners();
 };
 
-// global trace object for convenience
+// global command catcher object for convenience
 extern CommandCatcher CCatcher;
 
 // **********************
