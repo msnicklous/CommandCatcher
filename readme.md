@@ -173,7 +173,7 @@ exit the listener function.
 
 You can add multiple listener functions. This might be useful for a larger project consisting of multiple independent
 modules. By default, the `CommandCatcher`can accept up to 4 listeners. If you need more, you can specify a different 
-number doring the `init()` call (see documentation). 
+number during the `init()` call (see documentation). 
 
 When you add multiple listeners, each listener will be called for every command. It is up to each listener 
 to determine which commands it wants to process. 
