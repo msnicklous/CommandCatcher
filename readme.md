@@ -87,7 +87,7 @@ setup() {
 If the init() function is not called, commands will neither be received nor processed. Calls to other CommandCatcher methods 
 will be ignored.
 
-If needed, you can also suppy a serial stream other than the standard Serial object to CommandCatcher during init().
+If needed, you can also suppy a serial stream other than the standard Serial object to CommandCatcher during 'init()'.
 Also, CommandCatcher uses a default buffer size of 16 characters, but if you want a different size, you can specify that
 in the init call as well:
 
@@ -100,6 +100,19 @@ setup() {
   ...
 }
 ```
+
+At the top of the loop() function, before executing anything that might process a command, you need to call the 
+CommandCatcher.update() method to process the serial queue. This method will not block or wait for input.   
+
+```
+loop() {
+  ...
+  CCatcher.update();
+  ...
+}
+```
+
+
 
 ### 
 
