@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['readme_2emd_0',['readme.md',['../readme_8md.html',1,'']]],
-  ['ready_1',['ready',['../class_command_catcher.html#a381892e1b8158be1c4fcbfd6e92a4d49',1,'CommandCatcher']]]
+  ['notification_20mode_0',['Notification Mode',['../index.html#autotoc_md16',1,'']]],
+  ['notify_1',['notify',['../class_command_listener.html#acbd615ce249c37a22e9fa6c4ae63357e',1,'CommandListener']]]
 ];

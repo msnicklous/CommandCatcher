@@ -106,12 +106,14 @@ Public Types</h2></td></tr>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a37b6cfe4692bfe608a4f99cae2f42791" id="r_a37b6cfe4692bfe608a4f99cae2f42791"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a37b6cfe4692bfe608a4f99cae2f42791">CommandCatcher</a> ()</td></tr>
 <tr class="memdesc:a37b6cfe4692bfe608a4f99cae2f42791"><td class="mdescLeft">&#160;</td><td class="mdescRight">default constructor  <br /></td></tr>
-<tr class="memitem:afae844307420403d92c6c3a18444051e" id="r_afae844307420403d92c6c3a18444051e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afae844307420403d92c6c3a18444051e">init</a> (Stream &amp;serial=Serial, uint8_t bufsize=16, uint8_t maxListeners=4)</td></tr>
-<tr class="memdesc:afae844307420403d92c6c3a18444051e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the serial interface for communication.  <br /></td></tr>
+<tr class="memitem:aac239c7d53c492bbf01bee2e78d4bc37" id="r_aac239c7d53c492bbf01bee2e78d4bc37"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aac239c7d53c492bbf01bee2e78d4bc37">init</a> (Stream &amp;serial=Serial, uint8_t bufsize=16)</td></tr>
+<tr class="memdesc:aac239c7d53c492bbf01bee2e78d4bc37"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the serial interface for communication.  <br /></td></tr>
 <tr class="memitem:aa3517ad811670bdfb002dce838558bc0" id="r_aa3517ad811670bdfb002dce838558bc0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa3517ad811670bdfb002dce838558bc0">update</a> (bool <a class="el" href="#aba4bd1d5eeccafa598dec502ca4f978a">close</a>=true)</td></tr>
 <tr class="memdesc:aa3517ad811670bdfb002dce838558bc0"><td class="mdescLeft">&#160;</td><td class="mdescRight">checks the Serial input stream and processes any command info available.  <br /></td></tr>
 <tr class="memitem:a721e8db5d0abb570488711e03a5de911" id="r_a721e8db5d0abb570488711e03a5de911"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a721e8db5d0abb570488711e03a5de911">addListener</a> (<a class="el" href="#a2d52f78c568d8c87b9d35c51199ed5fc">CCListener</a> myListener)</td></tr>
 <tr class="memdesc:a721e8db5d0abb570488711e03a5de911"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a listener to be called when a command is available.  <br /></td></tr>
+<tr class="memitem:ad9e3b6acbde6f6616ed36eee25dcf3b6" id="r_ad9e3b6acbde6f6616ed36eee25dcf3b6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad9e3b6acbde6f6616ed36eee25dcf3b6">addListener</a> (<a class="el" href="class_command_listener.html">CommandListener</a> *obj)</td></tr>
+<tr class="memdesc:ad9e3b6acbde6f6616ed36eee25dcf3b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a listener to be called when a command is available.  <br /></td></tr>
 <tr class="memitem:a7cc2134892ddaa983ecb4d158494beb3" id="r_a7cc2134892ddaa983ecb4d158494beb3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7cc2134892ddaa983ecb4d158494beb3">setTerminator</a> (char term)</td></tr>
 <tr class="memdesc:a7cc2134892ddaa983ecb4d158494beb3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the terminator character.  <br /></td></tr>
 <tr class="memitem:afc4d5a965f4e2f19c1593c6821257c1d" id="r_afc4d5a965f4e2f19c1593c6821257c1d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afc4d5a965f4e2f19c1593c6821257c1d">setSeparator</a> (char sep)</td></tr>
@@ -123,7 +125,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aa08c5b72082d11570bd2883bca287aeb" id="r_aa08c5b72082d11570bd2883bca287aeb"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa08c5b72082d11570bd2883bca287aeb">getCommand</a> ()</td></tr>
 <tr class="memdesc:aa08c5b72082d11570bd2883bca287aeb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the command.  <br /></td></tr>
 <tr class="memitem:a4bc5c2bbb837b6d265bdfdba3a64be3a" id="r_a4bc5c2bbb837b6d265bdfdba3a64be3a"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4bc5c2bbb837b6d265bdfdba3a64be3a">getParameter</a> ()</td></tr>
-<tr class="memdesc:a4bc5c2bbb837b6d265bdfdba3a64be3a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the paraeter string.  <br /></td></tr>
+<tr class="memdesc:a4bc5c2bbb837b6d265bdfdba3a64be3a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the parameter string.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Project: <a class="el" href="class_command_catcher.html" title="Project: CommandCatcher for Arduino.">CommandCatcher</a> for Arduino. </p>
@@ -169,7 +171,7 @@ Public Member Functions</h2></td></tr>
 </div>
 <a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
 <a id="a721e8db5d0abb570488711e03a5de911" name="a721e8db5d0abb570488711e03a5de911"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a721e8db5d0abb570488711e03a5de911">&#9670;&#160;</a></span>addListener()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a721e8db5d0abb570488711e03a5de911">&#9670;&#160;</a></span>addListener() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -184,11 +186,35 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Adds a listener to be called when a command is available. </p>
-<p>Should generally be called during the setup() function. The listener function must be a function returning void that accepts two char* parameters:</p>
-<div class="fragment"><div class="line"><span class="keywordtype">void</span> myListener(<span class="keywordtype">char</span>* command, <span class="keywordtype">char</span>* parameter)</div>
-</div><!-- fragment --><dl class="params"><dt>Parameters</dt><dd>
+<p>Should generally be called during the setup() function. The <span class="tt"><a class="el" href="class_command_catcher.html" title="Project: CommandCatcher for Arduino.">CommandCatcher</a></span>supports up to 4 listeners. The listener function must be a function returning void that accepts two char* parameters: </p><div class="fragment"><div class="line"><span class="keywordtype">void</span> myListener(<span class="keywordtype">char</span>* command, <span class="keywordtype">char</span>* parameter)</div>
+</div><!-- fragment --><p> This method works with free functions. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">myListener</td><td>- The listener to be added </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ad9e3b6acbde6f6616ed36eee25dcf3b6" name="ad9e3b6acbde6f6616ed36eee25dcf3b6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad9e3b6acbde6f6616ed36eee25dcf3b6">&#9670;&#160;</a></span>addListener() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CommandCatcher::addListener </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_command_listener.html">CommandListener</a> *</td>          <td class="paramname"><span class="paramname"><em>obj</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Adds a listener to be called when a command is available. </p>
+<p>Should generally be called during the setup() function. The <span class="tt"><a class="el" href="class_command_catcher.html" title="Project: CommandCatcher for Arduino.">CommandCatcher</a></span>supports up to 4 listeners. The listening class must extend the <a class="el" href="class_command_listener.html" title="abstract class to be implemented by listening class.">CommandListener</a> abstract class. This method allows a non-static member function of a class to be added as a listener. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">obj</td><td>- the object </td></tr>
   </table>
   </dd>
 </dl>
@@ -250,13 +276,13 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Returns the paraeter string. </p>
+<p>Returns the parameter string. </p>
 <p>To be used when polling for commands. </p><dl class="section return"><dt>Returns</dt><dd>the parameter string </dd></dl>
 
 </div>
 </div>
-<a id="afae844307420403d92c6c3a18444051e" name="afae844307420403d92c6c3a18444051e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afae844307420403d92c6c3a18444051e">&#9670;&#160;</a></span>init()</h2>
+<a id="aac239c7d53c492bbf01bee2e78d4bc37" name="aac239c7d53c492bbf01bee2e78d4bc37"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aac239c7d53c492bbf01bee2e78d4bc37">&#9670;&#160;</a></span>init()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -269,12 +295,7 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>bufsize</em></span><span class="paramdefsep"> = </span><span class="paramdefval">16</span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>maxListeners</em></span><span class="paramdefsep"> = </span><span class="paramdefval">4</span>&#160;)</td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>bufsize</em></span><span class="paramdefsep"> = </span><span class="paramdefval">16</span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -285,8 +306,7 @@ Public Member Functions</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">serial</td><td>- the serial stream to be used <br  />
  </td></tr>
-    <tr><td class="paramname">bufsize</td><td>- the desired buffer size </td></tr>
-    <tr><td class="paramname">maxListeners</td><td>- the maximum allowed number of listeners. Attempts to add more than this number of listeners will be ignored. </td></tr>
+    <tr><td class="paramname">bufsize</td><td>- the desired buffer size number of listeners will be ignored. </td></tr>
   </table>
   </dd>
 </dl>

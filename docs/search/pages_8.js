@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['operation_0',['General Operation',['../index.html#autotoc_md8',1,'']]],
-  ['overview_1',['Overview',['../index.html#autotoc_md5',1,'']]]
+  ['mode_0',['Mode',['../index.html#autotoc_md16',1,'Notification Mode'],['../index.html#autotoc_md15',1,'Polling Mode']]]
 ];

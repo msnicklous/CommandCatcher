@@ -56,10 +56,8 @@ public:
    **
    ** @param serial - the serial stream to be used  
    ** @param bufsize - the desired buffer size
-   ** @param maxListeners - the maximum allowed number of listeners. Attempts to add more than this 
    ** number of listeners will be ignored.
    **/
-  //void init(Stream& serial=Serial, uint8_t bufsize=16, uint8_t maxListeners=4);
   void init(Stream& serial=Serial, uint8_t bufsize=16);
   
   /**
@@ -73,8 +71,8 @@ public:
 
   /**
    ** @brief Adds a listener to be called when a command is available
-   ** @details Should generally be called during the setup() function. The listener function must be a function 
-   ** returning void that accepts two char* parameters: 
+   ** @details Should generally be called during the setup() function. The `CommandCatcher`supports up to 4 listeners.
+   ** The listener function must be a function returning void that accepts two char* parameters: 
    ** @code
    **   void myListener(char* command, char* parameter)
    ** @endcode
@@ -85,7 +83,8 @@ public:
 
   /**
    ** @brief Adds a listener to be called when a command is available
-   ** @details Should generally be called during the setup() function. 
+   ** @details Should generally be called during the setup() function.  The `CommandCatcher`supports up to 4 listeners.
+   ** The listening class must extend the CommandListener abstract class. 
    ** This method allows a non-static member function of a class to be added as a listener.
    ** @param obj - the object 
    **/
@@ -142,6 +141,7 @@ private:
   uint8_t reclen = 0;
   uint8_t cmdlen = 0;
   bool    cmdrdy = false;
+  bool    overrun = false;
   
   char  terminator = '\n';
   char  separator = ' ';
@@ -157,9 +157,9 @@ private:
     void (*method)(char*, char*);
   };
   
-  const uint8_t    maxListeners = 4;
-  CommandListener* listeners[maxListeners];
-  unint8_t         numListeners = 0;
+  static const uint8_t    maxListeners = 4;
+  CommandListener*        listeners[maxListeners];
+  uint8_t                 numListeners = 0;
   
   // returns true if command is available
   bool updateBuffer();

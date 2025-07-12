@@ -19,10 +19,9 @@ CommandCatcher CCatcher;  // global convenience object
 CommandCatcher::CommandCatcher() {
 }
 
-void CommandCatcher::init(Stream& serial, uint8_t buflen, uint8_t maxListeners) {
+void CommandCatcher::init(Stream& serial, uint8_t buflen) {
   
   ser = serial;
-  this->maxListeners = maxListeners;
 
   // should not be called multiple times, but if so, avoid memory leaks
   free(buffer);
@@ -66,36 +65,12 @@ void CommandCatcher::update(bool complete) {
 
 void CommandCatcher::addListener(CCListener l) {
   if (numListeners < maxListeners) {
-    if (listeners == NULL) {
-      listeners = (CommandListener**)malloc(maxListeners * sizeof(CommandListener));
-      if (listeners == NULL) {
-        
-#ifdef DEBUG
-        ser.print("Could not allocate memory for listeners: ");
-        ser.println(maxListeners);
-#endif
-
-        return;
-      }
-    }
     listeners[numListeners++] = new FListener(l);
   }
 }
 
 void CommandCatcher::addListener(CommandListener* obj) {
   if (numListeners < maxListeners) {
-    if (listeners == NULL) {
-      listeners = (CommandListener**)malloc(maxListeners * sizeof(CCListener));
-      if (listeners == NULL) {
-        
-#ifdef DEBUG
-        ser.print("Could not allocate memory for listeners: ");
-        ser.println(maxListeners);
-#endif
-
-        return;
-      }
-    }
     listeners[numListeners++] = obj;
   }
 }
@@ -124,9 +99,22 @@ char* CommandCatcher::getParameter() {
 
 bool CommandCatcher::updateBuffer() {
   
-  if (ser.available() && cmdrdy) {
-    // more stuff incoming before command processed, so throw old command away.
-    close();
+  if (ser.available()) {
+    
+    if (cmdrdy) {
+      // more stuff incoming before command processed, so throw old command away.
+      close();
+    }
+    
+    while(ser.available() && overrun) {
+      // throw away remaining characters until an termination character is encountered
+      char c = ser.read();
+#ifdef DEBUG
+      ser.print("throw away: ");
+      ser.println(c);
+#endif    
+      if (c == terminator) overrun = false;
+    }
   }
   
   while(ser.available() && reclen < (buflen-1)) {
@@ -153,6 +141,7 @@ bool CommandCatcher::updateBuffer() {
       if (++reclen == buflen-1) {
         // end of buffer, so throw the rest away.
         cmdrdy = true;
+        overrun = true;
         if (cmdlen == 0) cmdlen = reclen;
         while(ser.available()) c = ser.read();
       }
@@ -163,8 +152,10 @@ bool CommandCatcher::updateBuffer() {
 
 void CommandCatcher::notifyListeners() {
   if (listeners != NULL && numListeners > 0) {
+    char* cmd = getCommand();
+    char* param = getParameter();
     for (int ii=0; ii<numListeners; ii++) {
-      listeners[ii](getCommand(), getParameter());
+      listeners[ii]->notify(cmd, param);
     }
   }
 }

@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['setseparator_0',['setSeparator',['../class_command_catcher.html#afc4d5a965f4e2f19c1593c6821257c1d',1,'CommandCatcher']]],
-  ['setterminator_1',['setTerminator',['../class_command_catcher.html#a7cc2134892ddaa983ecb4d158494beb3',1,'CommandCatcher']]]
+  ['ready_0',['ready',['../class_command_catcher.html#a381892e1b8158be1c4fcbfd6e92a4d49',1,'CommandCatcher']]]
 ];

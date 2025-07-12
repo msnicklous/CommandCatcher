@@ -26,9 +26,12 @@ var NAVTREE =
 [
   [ "CommandCatcher", "index.html", [
     [ "CommandCatcher - a simple Arduino library for getting commands through the serial interface", "index.html", "index" ],
-    [ "Changelog", "md__c_1_2dev_2_arduino_2tries_2libraries_2_command_catcher_2changelog.html", [
-      [ "[v0.0.1]", "md__c_1_2dev_2_arduino_2tries_2libraries_2_command_catcher_2changelog.html#autotoc_md1", [
-        [ "Added", "md__c_1_2dev_2_arduino_2tries_2libraries_2_command_catcher_2changelog.html#autotoc_md2", null ]
+    [ "Changelog", "md_changelog.html", [
+      [ "[v0.0.1]", "md_changelog.html#autotoc_md1", [
+        [ "Added", "md_changelog.html#autotoc_md2", null ]
+      ] ],
+      [ "[v1.0.0]", "md_changelog.html#autotoc_md3", [
+        [ "Added", "md_changelog.html#autotoc_md4", null ]
       ] ]
     ] ],
     [ "Classes", "annotated.html", [

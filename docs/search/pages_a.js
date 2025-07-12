@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['the_20serial_20interface_0',['CommandCatcher - a simple Arduino library for getting commands through the serial interface',['../index.html',1,'']]],
-  ['through_20the_20serial_20interface_1',['CommandCatcher - a simple Arduino library for getting commands through the serial interface',['../index.html',1,'']]]
+  ['operation_0',['General Operation',['../index.html#autotoc_md10',1,'']]],
+  ['overview_1',['Overview',['../index.html#autotoc_md7',1,'']]]
 ];

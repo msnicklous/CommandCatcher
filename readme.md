@@ -111,6 +111,16 @@ loop() {
   ...
 }
 ```
+
+The values of the command and parameters will be discarded when you 
+exit the listener function, so if you need them after returning, you need to save them yourself. 
+
+You can add multiple listener functions. This might be useful for a larger project consisting of multiple independent
+modules. By default, the `CommandCatcher`can accept up to 4 listeners. 
+
+When you add multiple listeners, each listener will be called for every command. It is up to each listener 
+to determine which commands it wants to process. 
+
 The `CommandCatcher`can be used in **Polling** mode or in **Notification** mode.
 
 
@@ -149,7 +159,14 @@ Note that the `close()` function discards the contents of the command and parame
 
 To use notification mode, the sketch registers a listener function during `setup()` and calls `update(true)` (true is the 
 default value of the parameter, so you can use `update()` just as well). When a command is available, the listener is called.
-The listener must be a function returning `void` and taking two `char*`parameters.
+The listener function must accept two `char*` parameters and return `void`. The first parameter is the command, and the 
+second is the parameter string. 
+
+```
+void notify(char* cmd, char* param);
+```
+
+You can add any free function that satisfies the method signature:
 
 ```
 void setup() {
@@ -162,18 +179,32 @@ void loop() {
   CCatcher.update();
 }
 
-
 void aListener(char* cmd, char* param) {
   ... process the command ...
 }
 ```
 
-When using polling mode, you need to assume that the values of the command and parameters will be discarded when you 
-exit the listener function. 
+If you want to use a non-static class method as a listener, cou can do that by having your class extend the 
+`CommandListener` abstract class and implement its `notify` method.
 
-You can add multiple listener functions. This might be useful for a larger project consisting of multiple independent
-modules. By default, the `CommandCatcher`can accept up to 4 listeners. If you need more, you can specify a different 
-number during the `init()` call (see documentation). 
+```
+class MyClass  : public CommandListener {
+  public:
+  MyClass();
+  void notify(char* cmd, char* param) override;
+};
+```
+You can then add an instance of this class as a command listener.
 
-When you add multiple listeners, each listener will be called for every command. It is up to each listener 
-to determine which commands it wants to process. 
+```
+MyClass myClass;
+void setup() {
+  Serial.begin(115200);
+  CCatcher.init();
+  CCatcher.addListener(myClass);
+}
+
+void loop() {
+  CCatcher.update();
+}
+```
