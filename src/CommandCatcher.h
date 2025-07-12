@@ -17,6 +17,23 @@
  **
 */
 
+/**
+ ** @brief abstract class to be implemented by listening class.
+ */
+class CommandListener {
+public:
+  virtual ~CommandListener() = default;
+  
+  /**
+   ** @brief called when a command s ready.
+   ** @details A class extending this function can be registered for notification through `addListener`.
+   ** @param cmd - the command string
+   ** @param param - the parameter string
+   */
+  virtual void notify(char* cmd, char* param);
+};
+
+
 class CommandCatcher {
 public:
   
@@ -42,7 +59,8 @@ public:
    ** @param maxListeners - the maximum allowed number of listeners. Attempts to add more than this 
    ** number of listeners will be ignored.
    **/
-  void init(Stream& serial=Serial, uint8_t bufsize=16, uint8_t maxListeners=4);
+  //void init(Stream& serial=Serial, uint8_t bufsize=16, uint8_t maxListeners=4);
+  void init(Stream& serial=Serial, uint8_t bufsize=16);
   
   /**
    ** @brief checks the Serial input stream and processes any command info available.
@@ -57,14 +75,21 @@ public:
    ** @brief Adds a listener to be called when a command is available
    ** @details Should generally be called during the setup() function. The listener function must be a function 
    ** returning void that accepts two char* parameters: 
-   **
    ** @code
    **   void myListener(char* command, char* parameter)
    ** @endcode
-   **
+   ** This method works with free functions.
    ** @param myListener - The listener to be added
    **/
   void addListener(CCListener myListener);
+
+  /**
+   ** @brief Adds a listener to be called when a command is available
+   ** @details Should generally be called during the setup() function. 
+   ** This method allows a non-static member function of a class to be added as a listener.
+   ** @param obj - the object 
+   **/
+  void addListener(CommandListener* obj);
 
   /**
    ** @brief Sets the terminator character
@@ -101,7 +126,7 @@ public:
   char* getCommand();
 
   /**
-   ** @brief Returns the paraeter string
+   ** @brief Returns the parameter string
    ** @details To be used when polling for commands.
    ** @return the parameter string
    **/
@@ -121,9 +146,20 @@ private:
   char  terminator = '\n';
   char  separator = ' ';
   
-  CCListener* listeners = NULL;
-  int         numListeners = 0;
-  int         maxListeners = 0;
+  class FListener : public CommandListener {
+  public:
+    FListener(void method(char*, char*)) : method(method) {}
+
+    void notify(char* cmd, char* param) override {
+      method(cmd, param);
+    }
+  private:
+    void (*method)(char*, char*);
+  };
+  
+  const uint8_t    maxListeners = 4;
+  CommandListener* listeners[maxListeners];
+  unint8_t         numListeners = 0;
   
   // returns true if command is available
   bool updateBuffer();

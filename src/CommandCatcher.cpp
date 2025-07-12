@@ -67,7 +67,7 @@ void CommandCatcher::update(bool complete) {
 void CommandCatcher::addListener(CCListener l) {
   if (numListeners < maxListeners) {
     if (listeners == NULL) {
-      listeners = (CCListener*)malloc(maxListeners * sizeof(CCListener));
+      listeners = (CommandListener**)malloc(maxListeners * sizeof(CommandListener));
       if (listeners == NULL) {
         
 #ifdef DEBUG
@@ -78,7 +78,25 @@ void CommandCatcher::addListener(CCListener l) {
         return;
       }
     }
-    listeners[numListeners++] = l;
+    listeners[numListeners++] = new FListener(l);
+  }
+}
+
+void CommandCatcher::addListener(CommandListener* obj) {
+  if (numListeners < maxListeners) {
+    if (listeners == NULL) {
+      listeners = (CommandListener**)malloc(maxListeners * sizeof(CCListener));
+      if (listeners == NULL) {
+        
+#ifdef DEBUG
+        ser.print("Could not allocate memory for listeners: ");
+        ser.println(maxListeners);
+#endif
+
+        return;
+      }
+    }
+    listeners[numListeners++] = obj;
   }
 }
 
